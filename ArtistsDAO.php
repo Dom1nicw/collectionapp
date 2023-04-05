@@ -11,15 +11,14 @@ class ArtistsDAO
     public function fetchAll(): array
     {
         $sql = 'SELECT `albumartists`.`album_id`, `artists`.`name` AS `artist`
-FROM `albumartists`
-INNER JOIN `albums`
-ON `albumartists`.`album_id` = `albums`.`id`
-INNER JOIN `artists`
-ON `albumartists`.`artist_id` = `artists`.`id`';
+            FROM `albumartists`
+            INNER JOIN `albums`
+            ON `albumartists`.`album_id` = `albums`.`id`
+            INNER JOIN `artists`
+            ON `albumartists`.`artist_id` = `artists`.`id`';
 
         $query = $this->db->prepare($sql);
         $query->execute();
-        $rows = $query->fetchAll();
-    return $rows;
+        return $query->fetchAll();
     }
 }

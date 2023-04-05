@@ -2,8 +2,6 @@
 
 class Album
 {
-    const OWNER = 'iO Academy';
-
     // Properties
     private int $id;
     private string $name;
@@ -14,8 +12,13 @@ class Album
     private ?string $artists;
 
     public function __construct(
-        int $id, string $name, string $release_date, string $album_or_single, ?string $link_to_image,
-        string $reason_for_inclusion, ?string $artists
+        int $id,
+        string $name,
+        string $release_date,
+        string $album_or_single,
+        ?string $link_to_image,
+        string $reason_for_inclusion,
+        ?string $artists
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -93,9 +96,9 @@ class Album
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getLinkToImage(): string
+    public function getLinkToImage(): ?string
     {
         return $this->link_to_image;
     }
@@ -140,8 +143,4 @@ class Album
         $this->artists = $artists;
     }
 
-
-
-
 }
-

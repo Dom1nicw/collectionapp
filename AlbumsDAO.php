@@ -28,7 +28,6 @@ class AlbumsDAO
                 $row['album_or_single'], $row['link_to_image'], $row['reason'], '');
             $albums[] = $album;
         }
-
         return $albums;
     }
 }

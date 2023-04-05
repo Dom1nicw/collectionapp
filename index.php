@@ -2,6 +2,7 @@
 
 require_once 'AlbumsDAO.php';
 require_once 'ArtistsDAO.php';
+require_once 'functions.php';
 
 // CREATE ARRAYS OF ALBUMS AND ARTISTS //
 $albumsDAO = new AlbumsDAO();
@@ -10,24 +11,12 @@ $albums = $albumsDAO->fetchAll();
 $artistsDAO = new ArtistsDAO();
 $artists = $artistsDAO->fetchAll();
 
-function intToBritDate(string $intDate): string {
-    $timestamp = strtotime($intDate);
-    return date("d.m.Y", $timestamp);
-}
-
 // ADD ARTISTS TO EACH ALBUM OBJECT //
 foreach ($albums as $album) {
-    $album_id = $album->getId();
-    $albumartists = [];
-    foreach ($artists as $artist) {
-        if ($album_id == $artist['album_id']) {
-            $albumartists[] = $artist['artist'];
-        }
-    }
-    $albumartists = implode(", " , $albumartists);
-    $album->setArtists($albumartists);
+    $album = matchArtistsToAlbum($album, $artists);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,49 +57,15 @@ foreach ($albums as $album) {
 </p>
 
 <section class="collection">
-
     <?php
+    // MAKE THE HTML OF EACH ALBUM CARD //
     $html = '';
     foreach ($albums as $album) {
-
-        if ($album->getAlbumOrSingle() == 'a') {
-            $type = 'Album';
-        } else {
-            $type = 'Single';
-        }
-
-        if ($album->getReasonForInclusion() == 'audio') {
-            $reason = '<i class="fa-solid fa-music"></i>';
-        } elseif ($album->getReasonForInclusion() == 'visual') {
-            $reason = '<i class="fa-solid fa-eye"></i>';
-        } else {
-            $reason = '<i class="fa-solid fa-music"></i> <i class="fa-solid fa-eye"></i>';
-        }
-
-        $html .= '<div class="card-border">'
-            . '<div class="album-card">'
-            . '<div class="img-container">'
-            . '<img src="https://i.scdn.co/image/ab67616d0000b273c061423a25e84bddcb60bd97" alt="' . $album->getName()
-            . ' album cover">'
-            . '</div>'
-            . '<h2>' . $album->getName() . '</h2>'
-            . '<p>' . $type . '</p>'
-            . '<p class="subtitle">ARTIST(S)</p>'
-            . '<p>'. $album->getArtists() .'</p>'
-            . '<p class="subtitle">RELEASED</p>'
-            . '<div class="card-footer">'
-            . '<div>' . intToBritDate($album->getReleaseDate()) . '</div>'
-            . '<div>' . $reason . '</div>'
-            . '</div>'
-            . '</div>'
-            . '</div>';
+        $html .= albumObjectToHtml($album);
     }
     echo $html;
     ?>
-<!--    function intToBritDate(string $intDate): string {-->
-<!--    $timestamp = strtotime($intDate);-->
-<!--    return date("d M Y", $timestamp);-->
-<!--    }-->
+
 </section>
 
 </body>
