@@ -24,9 +24,8 @@ class AlbumsDAO
 
         $albums = [];
         foreach ($rows as $row) {
-            $album = new Album($row['id'], $row['name'], $row['release_date'],
+            $albums[] = new Album($row['id'], $row['name'], $row['release_date'],
                 $row['album_or_single'], $row['link_to_image'], $row['reason'], '');
-            $albums[] = $album;
         }
         return $albums;
     }

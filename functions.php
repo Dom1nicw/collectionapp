@@ -35,7 +35,7 @@ function altTagMaker(Album $anAlbum): string {
     if (is_null($anAlbum->getLinkToImage())) {
         return 'no image in database';
     } else {
-        return $anAlbum->getName() . 'album cover';
+        return $anAlbum->getName() . ' album cover';
     }
 }
 
@@ -57,9 +57,9 @@ function albumObjectToHtml(Album $anAlbum): string {
         . '<img src="' . $imagelink . '" alt="' . $alttag . '">'
         . '</div>'
         . '<h2>' . $anAlbum->getName() . '</h2>'
-        . '<p>' . $anAlbum->getAlbumOrSingle() . '</p>'
+        . '<p class="album-type"> (' . $anAlbum->getAlbumOrSingle() . ')</p>'
         . '<p class="subtitle">ARTIST(S)</p>'
-        . '<p>'. $anAlbum->getArtists() .'</p>'
+        . '<p class="artists">'. $anAlbum->getArtists() .'</p>'
         . '<p class="subtitle">RELEASED</p>'
         . '<div class="card-footer">'
         . '<div>' . intToBritDate($anAlbum->getReleaseDate()) . '</div>'
