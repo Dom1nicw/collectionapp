@@ -1,0 +1,53 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+
+
+img {
+    width: 100%;
+    height: auto;*, *::before, *::after {
+                     box-sizing: border-box;}
+}
+
+.collection {
+    width: 100%;
+    display: grid;
+    font-family: roboto, sans-serif;
+}
+
+body {
+    margin: 0rem;
+    background: #C32B61;
+}
+
+.album-card {
+    padding-top: 0.3rem;
+    background: #FF4285;
+    border-radius: 1rem;
+}
+
+.card-border {
+    margin: 1rem;
+    background: black;
+    border-bottom: 0.3rem solid;
+    border-radius: 1rem;
+    border-right: 0.3rem solid;
+}
+
+.img-container {
+    margin: 0.2rem;
+    border: 0.2rem solid;
+    border-color: #FF4285;
+    border-radius: 0.3rem;
+}
+
+img {
+    border-radius: 1rem;
+}
+
+.card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

@@ -1,0 +1,169 @@
+# ************************************************************
+# Sequel Ace SQL dump
+# Version 20046
+#
+# https://sequel-ace.com/
+# https://github.com/Sequel-Ace/Sequel-Ace
+#
+# Host: 127.0.0.1 (MySQL 5.5.5-10.11.2-MariaDB-1:10.11.2+maria~ubu2204)
+# Database: dnbalbums
+# Generation Time: 2023-04-05 10:11:34 +0000
+# ************************************************************
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+SET NAMES utf8mb4;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE='NO_AUTO_VALUE_ON_ZERO', SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table albumartists
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `albumartists`;
+
+CREATE TABLE `albumartists` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `album_id` int(11) unsigned DEFAULT NULL,
+  `artist_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_album_id` (`album_id`),
+  KEY `FK_artist_id` (`artist_id`),
+  CONSTRAINT `FK_album_id` FOREIGN KEY (`album_id`) REFERENCES `albums` (`id`),
+  CONSTRAINT `FK_artist_id` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+LOCK TABLES `albumartists` WRITE;
+/*!40000 ALTER TABLE `albumartists` DISABLE KEYS */;
+
+INSERT INTO `albumartists` (`id`, `album_id`, `artist_id`)
+VALUES
+	(1,1,1),
+	(2,1,2),
+	(3,2,1),
+	(4,2,3),
+	(5,3,4),
+	(6,4,5),
+	(7,4,6),
+	(8,5,3),
+	(9,6,1),
+	(10,7,1),
+	(11,7,2),
+	(12,7,7),
+	(13,8,1),
+	(14,8,2),
+	(15,8,8),
+	(16,9,9),
+	(17,10,10),
+	(18,11,3),
+	(19,11,4),
+	(20,12,2);
+
+/*!40000 ALTER TABLE `albumartists` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table albums
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `albums`;
+
+CREATE TABLE `albums` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `release_date` date NOT NULL,
+  `album_or_single` enum('a','s') NOT NULL,
+  `link_to_image` varchar(255) DEFAULT NULL,
+  `reason_for_inclusion` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_reason_id` (`reason_for_inclusion`),
+  CONSTRAINT `FK_reason_id` FOREIGN KEY (`reason_for_inclusion`) REFERENCES `reasons` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+LOCK TABLES `albums` WRITE;
+/*!40000 ALTER TABLE `albums` DISABLE KEYS */;
+
+INSERT INTO `albums` (`id`, `name`, `release_date`, `album_or_single`, `link_to_image`, `reason_for_inclusion`)
+VALUES
+	(1,'Portals','2020-10-09','a',NULL,3),
+	(2,'Desire','2018-09-14','s',NULL,3),
+	(3,'Alone','2023-01-20','s',NULL,2),
+	(4,'Your Love','2019-09-24','s',NULL,1),
+	(5,'Organ','2021-03-05','a',NULL,1),
+	(6,'Solar System / Siren','2019-07-26','s',NULL,3),
+	(7,'Just Hold On (Sub Focus & Wilkinson vs. Pola & Bryson Remix)','2020-05-22','s',NULL,3),
+	(8,'Freedom (Sub Focus x Wlikinson x High Contrast Remix)','2021-01-08','s',NULL,2),
+	(9,'Ex Machina','2020-06-26','a',NULL,1),
+	(10,'Elements','2017-06-23','a',NULL,1),
+	(11,'Don\'t Sleep','2020-04-10','s',NULL,1),
+	(12,'Frontline','2021-02-26','s',NULL,3);
+
+/*!40000 ALTER TABLE `albums` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table artists
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `artists`;
+
+CREATE TABLE `artists` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+LOCK TABLES `artists` WRITE;
+/*!40000 ALTER TABLE `artists` DISABLE KEYS */;
+
+INSERT INTO `artists` (`id`, `name`)
+VALUES
+	(1,'Sub Focus'),
+	(2,'Wilkinson'),
+	(3,'Dimension'),
+	(4,'Culture Shock'),
+	(5,'Friction'),
+	(6,'Kanine'),
+	(7,'Pola & Bryson'),
+	(8,'High Contrast'),
+	(9,'Metrik'),
+	(10,'Hybrid Minds');
+
+/*!40000 ALTER TABLE `artists` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table reasons
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `reasons`;
+
+CREATE TABLE `reasons` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `reason` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+LOCK TABLES `reasons` WRITE;
+/*!40000 ALTER TABLE `reasons` DISABLE KEYS */;
+
+INSERT INTO `reasons` (`id`, `reason`)
+VALUES
+	(1,'audio'),
+	(2,'visual'),
+	(3,'audio and visual');
+
+/*!40000 ALTER TABLE `reasons` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
