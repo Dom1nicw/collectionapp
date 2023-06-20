@@ -7,7 +7,7 @@ body {
     background: #FF4285;
 }
 
-h1 {cd
+h1 {
     font-family: roboto, sans-serif;
     padding-left: 1.5rem;
 }
@@ -36,6 +36,7 @@ img {
     padding-top: 0.3rem;
     background: #F1A7D1;
     border-radius: 1rem;
+    height: 100%;
 }
 
 .card-border {
